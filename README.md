@@ -56,6 +56,7 @@ All processes can be started with `./bin/dev`.
 - **Real-time Updates** - Turbo Streams via Action Cable for zero-refresh UX
 - **Background Processing** - Sidekiq handles asynchronous email dispatch
 
+
 ## Testing
 
 ```bash
@@ -74,4 +75,3 @@ All 49 specs pass with comprehensive coverage of:
 - Background job processing
 - Request/response cycles
 - Real-time UI updates via system tests
-
