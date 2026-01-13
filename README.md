@@ -113,7 +113,7 @@ Campaign status: completed ← Final broadcast ← All recipients processed
 
 ## Future Improvements
 
-Given more time (40 hours vs 6), I would add:
+Given more time, I would add:
 
 ### High Priority
 1. **Real Email Integration**
@@ -149,15 +149,8 @@ Given more time (40 hours vs 6), I would add:
 - Export to CSV/PDF
 - Response rate tracking (if integrated with actual email service)
 
-### Nice to Have
 7. **UI Enhancements**
 - Campaign templates library
 - Bulk recipient import (CSV upload)
 - Drag-and-drop recipient management
 - Campaign duplication
-
-8. **Advanced Features**
-- A/B testing for campaign variants
-- Recipient segmentation and filtering
-- Rate limiting for sending (avoid provider throttling)
-- Webhook support for status callbacks
