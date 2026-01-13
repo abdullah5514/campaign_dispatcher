@@ -1,0 +1,29 @@
+<div class="mb-8">
+  <h1 class="text-3xl font-bold text-gray-900">Campaigns</h1>
+  <p class="mt-2 text-sm text-gray-600">Manage and dispatch your customer feedback campaigns</p>
+</div>
+
+<%= turbo_stream_from "campaigns" %>
+
+<div id="campaigns" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  <% if @campaigns.any? %>
+    <%= render @campaigns %>
+  <% else %>
+    <div class="col-span-full text-center py-12">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">No campaigns</h3>
+      <p class="mt-1 text-sm text-gray-500">Get started by creating a new campaign.</p>
+      <div class="mt-6">
+        <%= link_to new_campaign_path, class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+          <svg class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          New Campaign
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+

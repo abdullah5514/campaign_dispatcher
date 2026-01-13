@@ -1,0 +1,75 @@
+<div class="mb-6">
+  <%= link_to campaigns_path, class: "inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700" do %>
+    <svg class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    Back to Campaigns
+  <% end %>
+</div>
+
+<div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
+  <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900"><%= @campaign.title %></h1>
+      <p class="mt-1 text-sm text-gray-500">
+        Created <%= time_ago_in_words(@campaign.created_at) %> ago
+      </p>
+    </div>
+    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium <%= @campaign.status_badge_class %>">
+      <%= @campaign.status.titleize %>
+    </span>
+  </div>
+
+  <%= turbo_stream_from "campaign_#{@campaign.id}_progress" %>
+  
+  <div id="campaign_<%= @campaign.id %>_progress">
+    <%= render "progress", campaign: @campaign %>
+  </div>
+
+  <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+    <div class="flex space-x-3">
+      <%= link_to edit_campaign_path(@campaign), class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+        <svg class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+        Edit Campaign
+      <% end %>
+      
+      <% if @campaign.pending? %>
+        <%= button_to dispatch_campaign_campaign_path(@campaign), method: :post, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" do %>
+          <svg class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Dispatch Campaign
+        <% end %>
+      <% end %>
+      
+      <%= button_to campaign_path(@campaign), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" do %>
+        <svg class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+        Delete
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white shadow overflow-hidden sm:rounded-lg">
+  <div class="px-4 py-5 sm:px-6">
+    <h2 class="text-lg font-medium text-gray-900">Recipients</h2>
+    <p class="mt-1 text-sm text-gray-500">
+      <%= pluralize(@campaign.total_count, 'recipient') %> in this campaign
+    </p>
+  </div>
+  
+  <%= turbo_stream_from "campaign_#{@campaign.id}_recipients" %>
+  
+  <div class="border-t border-gray-200">
+    <ul role="list" class="divide-y divide-gray-200" id="recipients">
+      <% @recipients.each do |recipient| %>
+        <%= render "recipients/recipient", recipient: recipient %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+

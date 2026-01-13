@@ -1,0 +1,49 @@
+<li id="<%= dom_id recipient %>" class="px-4 py-4 sm:px-6 hover:bg-gray-50 transition-colors duration-200">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center flex-1 min-w-0">
+      <div class="flex-shrink-0">
+        <% if recipient.sent? %>
+          <span class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-green-100">
+            <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </span>
+        <% elsif recipient.failed? %>
+          <span class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-red-100">
+            <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </span>
+        <% else %>
+          <span class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-100">
+            <svg class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </span>
+        <% end %>
+      </div>
+      <div class="ml-4 flex-1 min-w-0">
+        <div class="flex items-center justify-between">
+          <p class="text-sm font-medium text-gray-900 truncate">
+            <%= recipient.name %>
+          </p>
+          <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= recipient.status_badge_class %>">
+            <%= recipient.status.titleize %>
+          </span>
+        </div>
+        <p class="text-sm text-gray-500 truncate">
+          <%= recipient.email %>
+        </p>
+        <% if recipient.error_message.present? %>
+          <p class="text-xs text-red-600 mt-1">
+            <svg class="inline h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <%= recipient.error_message %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</li>
+

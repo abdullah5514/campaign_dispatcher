@@ -1,0 +1,4 @@
+web: bin/rails server -p 3000
+sidekiq: bundle exec sidekiq
+css: bin/rails tailwindcss:watch
+

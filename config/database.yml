@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("POSTGRES_USER") { "postgres" } %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") { "postgres" } %>
+  host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
+  port: <%= ENV.fetch("POSTGRES_PORT") { 5433 } %>
+
+development:
+  <<: *default
+  database: campaign_dispatcher_development
+
+test:
+  <<: *default
+  database: campaign_dispatcher_test
+
+production:
+  <<: *default
+  database: campaign_dispatcher_production
+  username: campaign_dispatcher
+  password: <%= ENV["CAMPAIGN_DISPATCHER_DATABASE_PASSWORD"] %>
+
